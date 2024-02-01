@@ -2,6 +2,8 @@ import requests
 import json
 import urllib.parse
 import csv
+import pandas as pd
+
 
 # Getting list of genres from Genre-Movie API
 
@@ -23,7 +25,7 @@ new_fieldname=['genre_name','genre_id','movie_name','thumbnail']
 for genre in genres:
   genre_name=genre['name']
   genre_id=genre['id']
-  with open(f'{genre_name}_{genre_id}.csv', 'a',encoding = "utf-8") as genre_file :
+  with open(f'{genre_name}_{genre_id}.csv', 'w',encoding = "utf-8") as genre_file :
           csv_writer = csv.DictWriter(genre_file, fieldnames = new_fieldname)
           csv_writer.writeheader()
 # print(genres)
@@ -37,7 +39,7 @@ final_movie_list=[]
 url = "https://api.themoviedb.org/3/movie/changes?page=1"
 
 start_date = input("Enter start date in YYYY-MM-DD format: ")
-end_date = input("Enter start date in YYYY-MM-DD format: ")
+end_date = input("Enter end date in YYYY-MM-DD format: ")
 
 param=dict()
 param['start_date'] = start_date
@@ -75,7 +77,7 @@ for page in range(1,total_pages+1):
   cert = json.loads(response.text)
 #  print(cert)
   with open(f'{start_date}_{end_date}.csv', 'a',encoding = "utf-8") as movie_list :
-    csv_writer = csv.DictWriter(movie_list, fieldnames = fieldname)
+    csv_writer = csv.DictWriter(movie_list, fieldnames = fieldname, lineterminator='\n')
     csv_writer.writeheader()
     for i in cert['results']:
       i["page"] = page
@@ -114,9 +116,23 @@ for movie in movielist:
         genre_name = add_movie['genre_name']
         genre_id= add_movie['genre_id']
         with open(f'{genre_name}_{genre_id}.csv', 'a',encoding = "utf-8") as genre_file :
-          csv_writer = csv.DictWriter(genre_file, fieldnames = new_fieldname)
+          csv_writer = csv.DictWriter(genre_file, fieldnames = new_fieldname, lineterminator='\n')
           # csv_writer.writeheader()
           csv_writer.writerow(add_movie)
+
+for genre in genres:
+  genre_name=genre['name']
+  genre_id=genre['id']   
+  aa = pd.read_csv(f'{genre_name}_{genre_id}.csv')  
+  total_rows = len(aa)
+  aa.to_csv(f'{genre_name}_{genre_id}_{total_rows}.csv', index_label='index') 
+
+print(f'completed making changes to {genre_name}_{genre_id}.csv')
+print('finished making changes to all files')
+print("finished creating file")
+
+  
+     
 
 
 
