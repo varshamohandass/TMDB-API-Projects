@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyscript Demo</title>
+   
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+        - numpy
+        - matplotlib
+    </py-env>
+    
+</head>
+<body>
+    <h1>let's plot random numbers</h1>
+    <input type="text" name="Start Date">
+    <input type="text" name="End Date">
+    
+    <div id="new"></div>
+    <py-script>
+        import math
+        print(math.sqrt(10))
+    </py-script>
+    
+    <py-script src="main.py"></py-script>
+</body>
+</html>
