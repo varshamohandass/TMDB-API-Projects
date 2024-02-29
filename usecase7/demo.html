@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>    
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+</head>
+<body>
+    <form>
+        <label for="sdate">Start Date:</label>
+        <input type="date" id="sd" name="Start Date"><br><br>
+        <label for="edate">End Date:</label>
+        <input type="date" id="ed" name="End Date">
+        <button id="button" pys-onclick="runapi">Submit</button>
+    </form>
+    <py-script>
+        from js import document, Element
+        from pyodide import create_proxy
+
+        def onclickEvent(event):
+            start-date = document.getElementById("sd")
+            end-date = document.getElementById("ed")
+            print(start-date, end-date)
+        
+        button = document.getElementByid("button")
+        button.addEventListener("Click", create_proxy(onclick))
+
+    </py-script>
+    <!-- <p>Output</p>
+    <p id="output"></p>
+    <py-script scr="main.py"></py-script> -->
+
+    
+</body>
+</html>
